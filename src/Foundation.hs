@@ -18,6 +18,8 @@ import qualified Yesod.Core.Unsafe as Unsafe
 import qualified Data.CaseInsensitive as CI
 import qualified Data.Text.Encoding as TE
 
+import HelloSub
+
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
 -- starts running, such as database connections. Every handler will have
@@ -27,6 +29,7 @@ data App = App
     , appStatic      :: Static -- ^ Settings for static file serving.
     , appHttpManager :: Manager
     , appLogger      :: Logger
+    , getHelloSub    :: HelloSub
     }
 
 data MenuItem = MenuItem
@@ -48,7 +51,7 @@ data MenuTypes
 -- for an explanation for this split:
 -- http://www.yesodweb.com/book/scaffolding-and-the-site-template#scaffolding-and-the-site-template_foundation_and_application_modules
 --
--- This function also generates the following type synonyms:
+-- This function also generates the following ty+e synonyms:
 -- type Handler = HandlerFor App
 -- type Widget = WidgetFor App ()
 mkYesodData "App" $(parseRoutesFile "config/routes")
@@ -156,12 +159,14 @@ instance Yesod App where
 
     -- What messages should be logged. The following includes all messages when
     -- in development, and warnings and errors in production.
+    {-
     shouldLogIO :: App -> LogSource -> LogLevel -> IO Bool
     shouldLogIO app _source level =
         return $
         appShouldLogAll (appSettings app)
             || level == LevelWarn
             || level == LevelError
+    -}
 
     makeLogger :: App -> IO Logger
     makeLogger = return . appLogger

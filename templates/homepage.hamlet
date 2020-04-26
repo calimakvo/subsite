@@ -15,6 +15,9 @@
         <div .row>
             <div .col-lg-12>
                 <div .page-header>
+                    <h1 >Subsite
+                    <p>
+                        <a href=@{SubsiteR SubHomeR}>subsite
                     <h1 #start>Starting
 
                     <p>
